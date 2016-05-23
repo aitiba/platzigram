@@ -1,8 +1,7 @@
-- App que se va realizando durante el curso "Definitivo de Javascript" de @platzi.
-
+- App que se va realizando durante el curso "Definitivo de Javascript".
 INSTALACIÓN
 
-- git clone xxx
-- cd xxxx
+- git clone https://github.com/aitiba/platzigram.git
+- cd platzigram
 - npm install
-- gulp
+- npm start
