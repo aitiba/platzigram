@@ -3,7 +3,7 @@ var yo = require('yo-yo');
 module.exports = function pictureCard(pic) {
   var el;
   function render(pic) {
-     return yo`<div class="card">
+     return yo`<div class="card ${pic.liked ? 'liked' : ''}">
         <div class="card-image">
           <img class="activator" src="${pic.url}" />
         </div>
@@ -18,6 +18,9 @@ module.exports = function pictureCard(pic) {
             <a class="left" href="#" onclick=${like}>
               <i class="fa fa-heart-o" aria-hidden="true"></i>
             </a>
+            <a class="left" href="#" onclick=${dislike}>
+              <i class="fa fa-heart" aria-hidden="true"></i>
+            </a>
             <span class="left likes">${pic.likes} me gusta</span>
           </p>
         </div>
@@ -25,8 +28,16 @@ module.exports = function pictureCard(pic) {
   }
 
   function like() {
-    pic.true = true;
+    pic.liked = true;
     pic.likes++;
+    var newEl = render(pic);
+    yo.update(el, newEl);
+    return false;
+  }
+
+  function dislike() {
+    pic.liked = false;
+    pic.likes--;
     var newEl = render(pic);
     yo.update(el, newEl);
     return false;
