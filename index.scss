@@ -99,10 +99,12 @@ $avatar-size:48px;
   display: none;
 }
 
-.card.liked .fa-heart {
+.card.liked {
+  .fa-heart {
     display: block;
-}
+  }
 
-.card.liked .fa-heart-o {
+  .fa-heart-o {
     display: none;
+  }
 }
