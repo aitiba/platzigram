@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Platzigram</title>
+    <link href='https://fonts.googleapis.com/css?family=Montserrat|Oleo+Script' rel='stylesheet' type='text/css'>
+     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="public/app.css">
+    <link rel="stylesheet" href="assets/imagehover.min.css">
+    <meta name="viewport" content="width=device-width, init-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+
+
+  </head>
+  <body>
+    <section id="main-container">
+      <div class="container">
+        <div class="row">
+          <div class="col s3 push-s1 l3 push-l1 hide-on-small-only">
+            <div class="row">
+              <div class="col m5">
+                <img src="assets/logo.jpg" id="logo" />
+              </div>
+            </div>
+          </div>
+
+          <div class="col m7 push-m1 s12 push-s1">
+            <div id="profile-data" class="row">
+              <div class="col m12">
+                <div class="row" id="profile-username">
+                  Platzi
+                </div>
+                <div class="row" id="profile-description">
+                  <span class="profile-bold">Platzi</span> Cursos de diseño, marketing y desarrollo web/móvil en la mejor experiencia de educación online. | Usa el HT <a href="#">#Platzi</a> <a href="#">goo.gl/f1a0yA</a>
+                </div>
+                <div class="row" id="profile-tags">
+                  <div class="col s4">
+                    99 posts
+                  </div>
+                  <div class="col s4">
+                    5,556 followers
+                  </div>
+                  <div class="col s4">
+                    48 following
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row" id="image-area">
+          <div class="col s4 fade">
+            <figure class="imghvr-fade">
+              <img src="assets/post1.jpg" alt="example-image">
+              <figcaption>
+                <i class="material-icons dp48">thumb_up</i>34
+              </figcaption><a href="javascript:;"></a>
+            </figure>
+
+          </div>
+          <div class="col s4 fade">
+            <figure class="imghvr-fade">
+              <img src="assets/post2.jpg" alt="example-image">
+              <figcaption>
+                <i class="material-icons dp48">thumb_up</i>34
+              </figcaption><a href="javascript:;"></a>
+            </figure>
+          </div>
+          <div class="col s4 fade">
+            <figure class="imghvr-fade">
+              <img src="assets/post3.jpg" alt="example-image">
+              <figcaption>
+                <i class="material-icons dp48">thumb_up</i>34
+              </figcaption><a href="javascript:;"></a>
+            </figure>
+          </div>
+          <div class="col s4 fade">
+            <figure class="imghvr-fade">
+              <img src="assets/post4.jpg" alt="example-image">
+              <figcaption>
+                <i class="material-icons dp48">thumb_up</i>34
+              </figcaption><a href="javascript:;"></a>
+            </figure>
+          </div>
+          <div class="col s4 fade">
+            <figure class="imghvr-fade">
+              <img src="assets/post5.jpg" alt="example-image">
+              <figcaption>
+                <i class="material-icons dp48">thumb_up</i>34
+              </figcaption><a href="javascript:;"></a>
+            </figure>
+          </div>
+          <div class="col s4 fade">
+            <figure class="imghvr-fade">
+              <img src="assets/post6.jpg" alt="example-image">
+              <figcaption>
+                <i class="material-icons dp48">thumb_up</i>34
+              </figcaption><a href="javascript:;"></a>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="site-footer">
+      <div class="container">
+        <div class="row">
+          <div class="col s12 l3 center-align">
+            <a class='dropdown-button btn' href='#' data-activates='dropdown1'>Idioma</a>
+
+           <ul id='dropdown1' class='dropdown-content'>
+             <li><a href="#!">Español</a></li>
+             <li><a href="#!">Inglés</a></li>
+           </ul>
+          </div>
+
+          <div class="col s12 l3 push-l6 center-align">
+            2016 Platzigram
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script   src="https://code.jquery.com/jquery-2.2.3.min.js"   integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo="   crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
+  </body>
+</html>
