@@ -1,6 +1,6 @@
 var yo = require('yo-yo');
 var translate = require('../translate');
-
+//  ${translate.date.format(pic.createdAt)}
 module.exports = function pictureCard(pic) {
   var el;
   function render(pic) {
