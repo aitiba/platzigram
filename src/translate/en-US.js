@@ -17,5 +17,7 @@ module.exports = {
   'signup.have_account': 'Already have an account?',
   'signin': 'Signin',
   'signup.not-have-account': 'Don\'t have an account?',
-  'language': 'Language'
+  'language': 'Language',
+  'upload-picture': 'Upload file',
+  'upload': 'Upload'
 }
