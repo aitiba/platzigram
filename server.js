@@ -8,8 +8,12 @@ var config = require('./config')
 
 var s3 = new aws.S3({
   accessKeyId: config.aws.accessKey,
-  secretAccessKey: config.aws.secretKey
+  secretAccessKey: config.aws.secretKey,
+  endpoint: 's3-eu-central-1.amazonaws.com',
+  signatureVersion: 'v4',
+  region: 'eu-central-1'
 })
+
 
 var storage = multerS3({
   s3: s3,
@@ -36,7 +40,7 @@ var storage = multerS3({
 
 
 var upload = multer({ storage: storage }).single('picture');
-console.log(config.aws.accessKey)
+
 var app = express();
 
 app.set('view engine', 'pug');
@@ -89,7 +93,6 @@ app.get('/api/pictures', function(req, res) {
 
 app.post('/api/pictures', function (req, res) {
   upload(req, res, function (err) {
-    console.log("ERROR!")
     if (err) {
       return res.send(500, "Error uploading file");
     }
