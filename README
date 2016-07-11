@@ -5,3 +5,6 @@ INSTALACIÓN
 - cd platzigram
 - npm install
 - npm start
+
+
+source env.sh 
