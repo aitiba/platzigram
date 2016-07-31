@@ -9,3 +9,6 @@
 - Ejecutar en consola source config.sh. Con echo $AWS_ACCESS_KEY se ve si se seteo correctamente.
 - npm run build
 - npm start
+
+EL admin de rethinkdb esta en http://localhost:8080. Para ello la base de datos
+tiene que esta activa.

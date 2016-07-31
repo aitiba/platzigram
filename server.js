@@ -9,6 +9,9 @@ var aws = require('aws-sdk');
 var multerS3 = require('multer-s3');
 var config = require('./config');
 var port = process.env.PORT || 3000;
+var platzigram = require('platzigram-client');
+
+var client = platzigram.createClient(config.client);
 
 var s3 = new aws.S3({
   accessKeyId: config.aws.accessKey,
@@ -17,7 +20,6 @@ var s3 = new aws.S3({
   signatureVersion: 'v4',
   region: 'eu-central-1'
 })
-
 
 var storage = multerS3({
   s3: s3,
@@ -32,7 +34,6 @@ var storage = multerS3({
   }
 })
 
-
 /* var storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, './uploads')
@@ -42,19 +43,18 @@ var storage = multerS3({
   }
 }) */
 
-
 var upload = multer({ storage: storage }).single('picture');
 
 var app = express();
 
 // serializa los objetos json
 app.set(bodyParser.json());
-app.use(bodyParser.urlEnconded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(expressSession({
   secret: config.secret,
   resave: false,
-  saveUnitialize: false
+  saveInitialize: false
 }));
 app.use(passport.initialize());
 app.use(passport.session());
@@ -64,20 +64,29 @@ app.set('view engine', 'pug');
 
 app.use(express.static('public'));
 
-app.get('/', function(req, res) {
+app.get('/', function (req, res) {
   // res.send("Hola mundo!");
   res.render('index', { title: 'Platzigram' });
 })
 
-app.get('/signup', function(req, res) {
+app.get('/signup', function (req, res) {
   res.render('index', { title: 'Platzigram - Signup' });
 })
 
-app.get('/signin', function(req, res) {
+app.post('/signup', function (req, res) {
+  var user = req.body
+  client.saveUser(user, function (err, usr) {
+    if (err) return res.status(500).send(err.message);
+
+    res.redirect('/signin');
+  })
+})
+
+app.get('/signin', function (req, res) {
   res.render('index', { title: 'Platzigram - Signin' });
 })
 
-app.get('/api/pictures', function(req, res) {
+app.get('/api/pictures', function (req, res) {
 
     var pictures = [
       {
