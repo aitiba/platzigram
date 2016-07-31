@@ -1,10 +1,14 @@
 var express = require('express');
 var multer = require('multer');
 var ext = require('file-extension');
-var aws = require('aws-sdk')
-var multerS3 = require('multer-s3')
-
-var config = require('./config')
+var cookieParser = require('cookie-parser');
+var bodyParser = require('body-parser');
+var expressSession = require('express-session');
+var passport = require('passport');
+var aws = require('aws-sdk');
+var multerS3 = require('multer-s3');
+var config = require('./config');
+var port = process.env.PORT || 3000;
 
 var s3 = new aws.S3({
   accessKeyId: config.aws.accessKey,
@@ -42,6 +46,19 @@ var storage = multerS3({
 var upload = multer({ storage: storage }).single('picture');
 
 var app = express();
+
+// serializa los objetos json
+app.set(bodyParser.json());
+app.use(bodyParser.urlEnconded({ extended: false }));
+app.use(cookieParser());
+app.use(expressSession({
+  secret: config.secret,
+  resave: false,
+  saveUnitialize: false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+
 
 app.set('view engine', 'pug');
 
