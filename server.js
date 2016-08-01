@@ -10,7 +10,7 @@ var multerS3 = require('multer-s3');
 var config = require('./config');
 var port = process.env.PORT || 3000;
 var platzigram = require('platzigram-client');
-
+var auth = require('./auth');
 var client = platzigram.createClient(config.client);
 
 var s3 = new aws.S3({
@@ -59,10 +59,13 @@ app.use(expressSession({
 app.use(passport.initialize());
 app.use(passport.session());
 
-
 app.set('view engine', 'pug');
 
 app.use(express.static('public'));
+
+passport.use(auth.localStrategy);
+passport.deserializeUser(auth.deserializeUser);
+passport.serializeUser(auth.serializeUser);
 
 app.get('/', function (req, res) {
   // res.send("Hola mundo!");
@@ -85,6 +88,19 @@ app.post('/signup', function (req, res) {
 app.get('/signin', function (req, res) {
   res.render('index', { title: 'Platzigram - Signin' });
 })
+
+app.post('/login', passport.authenticate('local', {
+  successRedirect: '/',
+  failureRedirect: '/signin'
+}));
+
+function ensureAuth (req, res, next) {
+  if (req.isAuthenticated()) {
+    return next();
+  }
+
+  res.status(401).send({ error: 'not authenticated' });
+}
 
 app.get('/api/pictures', function (req, res) {
 
@@ -117,7 +133,7 @@ app.get('/api/pictures', function (req, res) {
 
 })
 
-app.post('/api/pictures', function (req, res) {
+app.post('/api/pictures', ensureAuth, function (req, res) {
   upload(req, res, function (err) {
     if (err) {
       return res.send(500, "Error uploading file");
