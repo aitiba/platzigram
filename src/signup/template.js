@@ -15,7 +15,7 @@ var signupForm = yo`<div class="col s12 m7">
         <div class="divider"></div>
         <div class="section">
           <input type="email" name="email" placeholder="${translate.message('email')}" />
-          <input type="text" name="name" placeholder="${translate.message('username')}" />
+          <input type="text" name="username" placeholder="${translate.message('username')}" />
           <input type="text" name="user" placeholder="${translate.message('fullname')}" />
           <input type="password" name="password" placeholder="${translate.message('password')}" />
           <button class="btn waves-effect waves-light btn-signup" type="submit">${translate.message('signup.call-to-action')}</button>
