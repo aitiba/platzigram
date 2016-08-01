@@ -5,18 +5,14 @@ var config = require('../config');
 var client = platzigram.createClient(config.client);
 
 exports.localStrategy = new LocalStrategy((username, password, done) => {
-  // console.log('local');
   client.auth(username, password, (err, token) => {
     if (err) {
-      // console.log("err1")
       return done(null, false, { message: 'username and password not found' });
     }
     console.log(username)
 
     client.getUser(username, (err, user) => {
       if (err) {
-        console.log("err2")
-        console.log(`${err.message}`)
         return done(null, false, { message: `an error ocurred: ${err.message}` })
       }
 
@@ -27,7 +23,6 @@ exports.localStrategy = new LocalStrategy((username, password, done) => {
 })
 
 exports.serializeUser = function (user, done) {
-  console.log('se');
   done(null, {
     username: user.username,
     token: user.token
@@ -35,7 +30,6 @@ exports.serializeUser = function (user, done) {
 }
 
 exports.deserializeUser = function (user, done) {
-  console.log('de');
   client.getUser(user.username, (err, usr) => {
     usr.token = user.token;
     done(err, usr);
