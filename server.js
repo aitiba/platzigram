@@ -8,7 +8,7 @@ var passport = require('passport');
 var aws = require('aws-sdk');
 var multerS3 = require('multer-s3');
 var config = require('./config');
-var port = process.env.PORT || 3000;
+var port = process.env.PORT || 5050;
 var platzigram = require('platzigram-client');
 var auth = require('./auth');
 var client = platzigram.createClient(config.client);
@@ -64,6 +64,7 @@ app.set('view engine', 'pug');
 app.use(express.static('public'));
 
 passport.use(auth.localStrategy);
+passport.use(auth.facebookStrategy);
 passport.deserializeUser(auth.deserializeUser);
 passport.serializeUser(auth.serializeUser);
 
@@ -90,6 +91,13 @@ app.get('/signin', function (req, res) {
 })
 
 app.post('/login', passport.authenticate('local', {
+  successRedirect: '/',
+  failureRedirect: '/signin'
+}));
+
+app.get('/auth/facebook', passport.authenticate('facebook', { scope: 'email' }));
+
+app.get('/auth/facebook/callback', passport.authenticate('facebook', {
   successRedirect: '/',
   failureRedirect: '/signin'
 }));
@@ -146,8 +154,8 @@ app.get('/user/platzi', function(req, res) {
   res.render('index');
 })
 
-app.listen(3000, function(err) {
+app.listen(port, function(err) {
   if (err) return console.log('ERROR'), process.exit(1);
 
-  console.log('Escuchando en el puerto 3000');
+  console.log(`Escuchando en el puerto ${port}`);
 })
