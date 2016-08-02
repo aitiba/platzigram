@@ -123,34 +123,11 @@ app.get('/whoami', function (req, res) {
   res.json({ auth: false })
 })
 app.get('/api/pictures', function (req, res) {
+  client.listPictures(function (err, pictures) {
+    if (err) return res.send([]);
 
-    var pictures = [
-      {
-        user: {
-          username: 'aitor',
-          avatar: 'https://pbs.twimg.com/profile_images/565680017737125888/ad1qqkg0.jpeg'
-        },
-        url: 'office.jpg',
-        likes: 0,
-        liked: false,
-        createdAt: new Date().getTime()
-      },
-      {
-        user: {
-          username: 'aitor',
-          avatar: 'https://pbs.twimg.com/profile_images/565680017737125888/ad1qqkg0.jpeg'
-        },
-        url: 'office.jpg',
-        likes: 1,
-        liked: true,
-        createdAt: new Date().setDate(new Date().getDate() - 10)
-      }
-    ];
-
-    setTimeout(function () {
-      res.send(pictures);
-    }, 2000)
-
+    res.send(pictures);
+  })
 })
 
 app.post('/api/pictures', ensureAuth, function (req, res) {
@@ -158,7 +135,23 @@ app.post('/api/pictures', ensureAuth, function (req, res) {
     if (err) {
       return res.send(500, "Error uploading file");
     }
-    res.send("File uploaded");
+    var user = req.user;
+    var token = req.user.token;
+    var username = req.user.username;
+    var src = req.file.location;
+
+    client.savePicture({
+      src: src,
+      userId: username,
+      user: {
+        username: username,
+        avatar: user.avatar,
+        name: user.name
+      }
+    }, token, function (err, img) {
+      if (err) return res.status(500).send(err.message);
+      res.send(`File uploaded: ${req.file.location}`);
+    })
   })
 })
 
