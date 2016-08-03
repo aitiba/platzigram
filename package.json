@@ -28,6 +28,7 @@
     "passport-local": "^1.0.0",
     "platzigram-cient": "aitoribanez/platzigram-client",
     "pug": "^2.0.0-alpha7",
+    "socket.io-client": "^1.4.8",
     "superagent": "^2.0.0",
     "title": "^1.0.0",
     "yo-yo": "^1.2.0"
